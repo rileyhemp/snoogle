@@ -10,19 +10,12 @@ import React from 'react';
 import {
 	SafeAreaView,
 	StyleSheet,
-	ScrollView,
 	View,
 	Text,
 	StatusBar,
 } from 'react-native';
 
-import {
-	Header,
-	LearnMoreLinks,
-	Colors,
-	DebugInstructions,
-	ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import Test from './src/Test'
 
 const App: () => React$Node = () => {
 	return (
@@ -31,6 +24,7 @@ const App: () => React$Node = () => {
 			<SafeAreaView>
 				<View style={styles.body}>
 					<Text>I am some extra text</Text>
+					<Test />
 				</View>
 			</SafeAreaView>
 		</>
