@@ -1,14 +1,8 @@
 import React from 'react';
-import axios from 'axios'
-import {
-	SafeAreaView,
-	StyleSheet,
-	View,
-	Text,
-	StatusBar,
-} from 'react-native';
+import axios from 'axios';
+import {SafeAreaView, StyleSheet, View, Text, StatusBar} from 'react-native';
 
-import Test from './src/Test'
+import Search from './Components/Search';
 
 const App: () => React$Node = () => {
 	return (
@@ -17,7 +11,7 @@ const App: () => React$Node = () => {
 			<SafeAreaView>
 				<View style={styles.body}>
 					<Text>I am some extra text</Text>
-					<Test />
+					<Search />
 				</View>
 			</SafeAreaView>
 		</>
@@ -26,13 +20,11 @@ const App: () => React$Node = () => {
 
 const styles = StyleSheet.create({
 	body: {
-		padding: 20
-	}
-})
+		padding: 20,
+	},
+});
 
 export default App;
-
-
 
 // const styles = StyleSheet.create({
 // 	scrollView: {
