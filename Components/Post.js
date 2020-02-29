@@ -1,17 +1,30 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {getReplies} from './RedditAPI';
+import {Comments} from './Comments';
 import moment from 'moment';
 
 export const Post = ({post}) => {
 	const date = moment.unix(post.created).format('MMMM YYYY');
 	const [previewLines, setPreviewLines] = useState(3);
+	const [comments, setComments] = useState(null);
+	const [loading, setLoading] = useState(false);
+
 	const onClickPost = () => {
-		previewLines ? setPreviewLines(null) : setPreviewLines(3);
-		getReplies(post.id)
-			.then(res => console.log(res))
-			.catch(err => console.log(err));
+		setLoading(true);
+		previewLines && !comments
+			? getReplies(post.id)
+					.then(res => {
+						setComments(res.comments);
+						setPreviewLines(null);
+						setLoading(false);
+					})
+					.catch(err => console.log(err))
+			: previewLines && comments
+			? setPreviewLines(null)
+			: setPreviewLines(3);
 	};
+
 	return (
 		<View style={styles.post}>
 			<TouchableOpacity onPress={() => onClickPost()}>
@@ -28,6 +41,7 @@ export const Post = ({post}) => {
 					</View>
 				</View>
 			</TouchableOpacity>
+			{comments ? <Comments /> : null}
 		</View>
 	);
 };
