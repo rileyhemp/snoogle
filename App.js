@@ -2,19 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {SafeAreaView, StyleSheet, View, Text, StatusBar} from 'react-native';
 import moment from 'moment';
 import {getPostsFromIDs} from './Components/RedditAPI';
+import {Post} from './Components/Post';
 import Search from './Components/GoogleAPI';
-
-const Post = ({post}) => {
-	const date = moment.unix(post.created).format('MMMM, YYYY');
-	return (
-		<View style={styles.post}>
-			<View style={styles.postHeader}>
-				<Text style={styles.title}>{post.title}</Text>
-				<Text style={styles.date}>{date}</Text>
-			</View>
-		</View>
-	);
-};
 
 const App: () => React$Node = () => {
 	const [postData, setPostData] = useState(undefined);
@@ -45,22 +34,6 @@ const App: () => React$Node = () => {
 const styles = StyleSheet.create({
 	body: {
 		padding: 20,
-	},
-	post: {
-		padding: 5,
-		borderColor: 'black',
-		borderWidth: 0.25,
-	},
-	title: {
-		fontSize: 16,
-		fontWeight: 'bold',
-	},
-	postHeader: {
-		flexDirection: 'row',
-		alignItems: 'flex-start',
-		justifyContent: 'space-between',
-		borderBottomWidth: 0.25,
-		marginBottom: 5,
 	},
 });
 
