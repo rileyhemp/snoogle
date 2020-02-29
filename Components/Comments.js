@@ -3,8 +3,12 @@ import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {getReplies} from './RedditAPI';
 import moment from 'moment';
 
-const Comment = ({comment}) => {
+const Comment = ({comment, depth}) => {
 	const created = moment.unix(comment.created).format('MMM Do YYYY');
+	const [maxDepth, setMaxDepth] = useState(2);
+	const onPressContinue = () => {
+		setMaxDepth(10);
+	};
 	return (
 		<View style={styles.comment}>
 			<View style={styles.header}>
@@ -12,11 +16,15 @@ const Comment = ({comment}) => {
 				<Text>{created}</Text>
 			</View>
 			<Text style={styles.body}>{comment.body}</Text>
-			{comment.replies
-				? comment.replies.map(comment => {
-						return <Comment comment={comment} />;
-				  })
-				: null}
+			{comment.replies && depth < maxDepth ? (
+				comment.replies.map(comment => {
+					return <Comment comment={comment} depth={depth + 1} />;
+				})
+			) : comment.replies ? (
+				<Text style={styles.link} onPress={onPressContinue}>
+					Continue thread...
+				</Text>
+			) : null}
 		</View>
 	);
 };
@@ -25,7 +33,7 @@ export const Comments = ({comments}) => {
 	return (
 		<View>
 			{comments.map(comment => {
-				return <Comment comment={comment} />;
+				return <Comment comment={comment} depth={0} />;
 			})}
 		</View>
 	);
