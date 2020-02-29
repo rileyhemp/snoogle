@@ -1,22 +1,20 @@
 import axios from 'axios';
 import snoowrap from 'snoowrap';
-let RedditAPI;
-getAccessToken();
-
-function getAccessToken() {
-	console.log('get access token was called');
-	snoowrap
-		.fromApplicationOnlyAuth({
-			clientId: 'S0qvSFIjP95kqw',
-			deviceId: 'DO_NOT_TRACK_THIS_DEVICE',
-			grantType: snoowrap.grantType.INSTALLED_CLIENT,
-		})
-		.then(r => {
-			r._nextRequestTimestamp = -1;
-			r.config({debug: true, proxies: false});
-			RedditAPI = r;
-		});
-}
+let api;
+snoowrap
+	.fromApplicationOnlyAuth({
+		clientId: 'S0qvSFIjP95kqw',
+		deviceId: 'DO_NOT_TRACK_THIS_DEVICE',
+		grantType: snoowrap.grantType.INSTALLED_CLIENT,
+	})
+	.then(r => {
+		r._nextRequestTimestamp = -1;
+		r.config({debug: true, proxies: false});
+		api = r;
+	});
+export const getAccessToken = function() {
+	api.getHot().then(posts => console.log(posts));
+};
 
 export const checkAccessToken = function() {
 	console.log('validating token');
