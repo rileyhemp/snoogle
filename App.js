@@ -1,13 +1,14 @@
-import React, {useEffect} from 'react';
-import axios from 'axios';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView, StyleSheet, View, Text, StatusBar} from 'react-native';
 
-import Search from './Components/Search';
+import {getAccessToken, checkAccessToken, getPosts} from './Components/RedditAPI';
+import Search from './Components/GoogleAPI';
 
 const App: () => React$Node = () => {
+	const [accessToken, setAccessToken] = useState(undefined);
 	useEffect(() => {
-		console.log('loaded');
-	}, []);
+		// console.log('loaded');
+	});
 	return (
 		<>
 			<StatusBar barStyle="dark-content" />
@@ -22,6 +23,7 @@ const App: () => React$Node = () => {
 };
 
 const handleSortedPosts = posts => {
+	getAccessToken();
 	//Expects an array of post IDs, and sends them to the Reddit API
 };
 
