@@ -10,7 +10,6 @@ const App: () => React$Node = () => {
 		if (postData != undefined) {
 			console.log(postData);
 		}
-		// console.log('loaded');
 	});
 	const handleSortedPosts = posts => {
 		//Expects an array of post IDs, and sends them to the Reddit API
@@ -26,6 +25,11 @@ const App: () => React$Node = () => {
 				<View style={styles.body}>
 					<Text>I am some extra text</Text>
 					<Search onSortedPosts={handleSortedPosts} />
+					{postData != undefined
+						? postData.map(el => {
+								return <Text key={el.name}>{el.title}</Text>;
+						  })
+						: null}
 				</View>
 			</SafeAreaView>
 		</>
