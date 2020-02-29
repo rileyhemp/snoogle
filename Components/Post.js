@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, ScrollView, View, Text, TouchableOpacity} from 'react-native';
 import {getReplies} from './RedditAPI';
 import {Comments} from './Comments';
 import moment from 'moment';
@@ -26,7 +26,7 @@ export const Post = ({post}) => {
 	};
 
 	return (
-		<View style={styles.post}>
+		<ScrollView style={styles.post}>
 			<TouchableOpacity onPress={() => onClickPost()}>
 				<View style={styles.header}>
 					<Text style={styles.title}>{post.title}</Text>
@@ -41,8 +41,8 @@ export const Post = ({post}) => {
 					</View>
 				</View>
 			</TouchableOpacity>
-			{comments ? <Comments /> : null}
-		</View>
+			{comments ? <Comments comments={comments} /> : null}
+		</ScrollView>
 	);
 };
 
