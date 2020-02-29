@@ -8,8 +8,10 @@ const Post = ({post}) => {
 	const date = moment.unix(post.created).format('MMMM, YYYY');
 	return (
 		<View style={styles.post}>
-			<Text style={styles.title}>{post.title}</Text>
-			<Text style={styles.date}>{date}</Text>
+			<View style={styles.postHeader}>
+				<Text style={styles.title}>{post.title}</Text>
+				<Text style={styles.date}>{date}</Text>
+			</View>
 		</View>
 	);
 };
@@ -52,6 +54,13 @@ const styles = StyleSheet.create({
 	title: {
 		fontSize: 16,
 		fontWeight: 'bold',
+	},
+	postHeader: {
+		flexDirection: 'row',
+		alignItems: 'flex-start',
+		justifyContent: 'space-between',
+		borderBottomWidth: 0.25,
+		marginBottom: 5,
 	},
 });
 
