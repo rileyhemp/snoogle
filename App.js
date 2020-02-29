@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView, StyleSheet, View, Text, StatusBar} from 'react-native';
 
-import {getAccessToken, checkAccessToken, getPosts} from './Components/RedditAPI';
+import {getPostsFromIDs} from './Components/RedditAPI';
 import Search from './Components/GoogleAPI';
 
 const App: () => React$Node = () => {
-	const [accessToken, setAccessToken] = useState(undefined);
+	const [postData, setPostData] = useState(undefined);
 	useEffect(() => {
 		// console.log('loaded');
 	});
@@ -22,8 +22,9 @@ const App: () => React$Node = () => {
 	);
 };
 
-const handleSortedPosts = posts => {
-	getAccessToken();
+const handleSortedPosts = async posts => {
+	let postData = await getPostsFromIDs(posts);
+	console.log(postData);
 	//Expects an array of post IDs, and sends them to the Reddit API
 };
 

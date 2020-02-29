@@ -1,8 +1,6 @@
 import axios from 'axios';
 import snoowrap from 'snoowrap';
-let RedditAPI;
-console.log('i did things');
-export const getAccessToken = function() {
+export const getPostsFromIDs = function(posts) {
 	snoowrap
 		.fromApplicationOnlyAuth({
 			clientId: 'S0qvSFIjP95kqw',
@@ -12,11 +10,11 @@ export const getAccessToken = function() {
 		.then(r => {
 			r._nextRequestTimestamp = -1;
 			r.config({debug: true, proxies: false});
-			RedditAPI = r;
-			console.log(RedditAPI);
-		});
+			r.getContentByIds(posts)
+				.then(res => {
+					return res.data;
+				})
+				.catch(err => console.log(err));
+		})
+		.catch(err => console.log(err));
 };
-
-// export default class RedditAPI {
-
-// }
