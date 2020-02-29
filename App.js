@@ -4,12 +4,19 @@ import {SafeAreaView, StyleSheet, View, Text, StatusBar} from 'react-native';
 import {getPostsFromIDs} from './Components/RedditAPI';
 import Search from './Components/GoogleAPI';
 
+const Post = ({post}) => {
+	return (
+		<View style={styles.post}>
+			<Text style={styles.title}>{post.title}</Text>
+			<Text style={styles.date}>{post.created}</Text>
+		</View>
+	);
+};
+
 const App: () => React$Node = () => {
 	const [postData, setPostData] = useState(undefined);
 	useEffect(() => {
-		if (postData != undefined) {
-			console.log(postData);
-		}
+		postData != undefined ? console.log(postData[0]) : null;
 	});
 	const handleSortedPosts = posts => {
 		//Expects an array of post IDs, and sends them to the Reddit API
@@ -25,11 +32,7 @@ const App: () => React$Node = () => {
 				<View style={styles.body}>
 					<Text>I am some extra text</Text>
 					<Search onSortedPosts={handleSortedPosts} />
-					{postData != undefined
-						? postData.map(el => {
-								return <Text key={el.name}>{el.title}</Text>;
-						  })
-						: null}
+					{postData != undefined ? <Post post={postData[0]} /> : null}
 				</View>
 			</SafeAreaView>
 		</>
@@ -39,6 +42,15 @@ const App: () => React$Node = () => {
 const styles = StyleSheet.create({
 	body: {
 		padding: 20,
+	},
+	post: {
+		padding: 5,
+		borderColor: 'black',
+		borderWidth: 0.25,
+	},
+	title: {
+		fontSize: 16,
+		fontWeight: 'bold',
 	},
 });
 
