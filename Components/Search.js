@@ -16,6 +16,9 @@ export default class Search extends Component {
 			fields: 'items(link,pagemap(metatags(og:description)))',
 		};
 	}
+	state = {
+		results: results,
+	};
 	search() {
 		const searchResults = [];
 		for (let i = 0; i < 3; i++) {
@@ -35,25 +38,34 @@ export default class Search extends Component {
 			);
 		}
 		Promise.all(searchResults).then(res => {
-			this.setState({
-				results: [
-					...results[0].items,
-					...results[1].items,
-					...results[2].items,
-				],
-			});
+			console.log(JSON.stringify([...res[0].items, ...res[1].items, ...res[2].items]));
+			// this.setState({
+			// 	results: [...res[0].items, ...res[1].items, ...res[2].items],
+			// });
 		});
 	}
-	test() {
-		let newResult = [
-			...results[0].items,
-			...results[1].items,
-			...results[2].items,
-		];
-
-		console.log(JSON.stringify(newResult));
+	sortByComments(posts) {
+		//Use meta description to determine which posts had replies,
+		//and assign that as a property to the post object
+		const postsWithReplies = [];
+		for (let i = 0; i < posts.length; i++) {
+			if (posts[i].pagemap) {
+				const description = posts[i].pagemap.metatags[0]['og:description'];
+				posts[i].totalComments = description.split('and ')[1].split(' comments')[0];
+				postsWithReplies.push(posts[i]);
+			}
+		}
+		//Sort the posts by comments
+		postsWithReplies.sort((a, b) => b.totalComments - a.totalComments);
+		//Create a new array with just the post IDs
+		const postIDs = [];
+		postsWithReplies.forEach(el => {
+			const ID = el.link.split('comments/')[1].split('/')[0];
+			postIDs.push(ID);
+		});
+		this.props.onSortedPosts(postIDs);
 	}
 	render() {
-		return <Button title="Search" onPress={() => this.search()} />;
+		return <Button title="Search" onPress={() => this.sortByComments(results)} />;
 	}
 }

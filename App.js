@@ -1,21 +1,30 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import axios from 'axios';
 import {SafeAreaView, StyleSheet, View, Text, StatusBar} from 'react-native';
 
 import Search from './Components/Search';
 
+const snoowrap = require('snoowrap');
+
 const App: () => React$Node = () => {
+	useEffect(() => {
+		console.log('loaded');
+	}, []);
 	return (
 		<>
 			<StatusBar barStyle="dark-content" />
 			<SafeAreaView>
 				<View style={styles.body}>
 					<Text>I am some extra text</Text>
-					<Search />
+					<Search onSortedPosts={handleSortedPosts} />
 				</View>
 			</SafeAreaView>
 		</>
 	);
+};
+
+const handleSortedPosts = posts => {
+	//Expects an array of post IDs, and sends them to the Reddit API
 };
 
 const styles = StyleSheet.create({
