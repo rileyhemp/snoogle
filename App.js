@@ -4,8 +4,6 @@ import {SafeAreaView, StyleSheet, View, Text, StatusBar} from 'react-native';
 
 import Search from './Components/Search';
 
-const snoowrap = require('snoowrap');
-
 const App: () => React$Node = () => {
 	useEffect(() => {
 		console.log('loaded');
