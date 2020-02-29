@@ -7,8 +7,18 @@ import Search from './Components/GoogleAPI';
 const App: () => React$Node = () => {
 	const [postData, setPostData] = useState(undefined);
 	useEffect(() => {
+		if (postData != undefined) {
+			console.log(postData);
+		}
 		// console.log('loaded');
 	});
+	const handleSortedPosts = posts => {
+		//Expects an array of post IDs, and sends them to the Reddit API
+		getPostsFromIDs(posts)
+			.then(res => setPostData(res))
+			.catch(err => console.log(err));
+	};
+
 	return (
 		<>
 			<StatusBar barStyle="dark-content" />
@@ -20,12 +30,6 @@ const App: () => React$Node = () => {
 			</SafeAreaView>
 		</>
 	);
-};
-
-const handleSortedPosts = async posts => {
-	let postData = await getPostsFromIDs(posts);
-	console.log(postData);
-	//Expects an array of post IDs, and sends them to the Reddit API
 };
 
 const styles = StyleSheet.create({

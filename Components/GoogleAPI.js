@@ -75,8 +75,8 @@ export default class Search extends Component {
 		const postIDs = [];
 
 		postsWithReplies.forEach(el => {
-			const ID = el.link.split('comments/')[1].split('/')[0];
-			postIDs.push(ID);
+			const ID = el.link.split('comments/')[1].split('/')[0]; //Split url before id
+			postIDs.push('t3_' + ID); //Add t3_, Reddit's submission identifier.
 		});
 
 		this.props.onSortedPosts(postIDs);
