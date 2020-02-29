@@ -1,14 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView, StyleSheet, View, Text, StatusBar} from 'react-native';
-
+import moment from 'moment';
 import {getPostsFromIDs} from './Components/RedditAPI';
 import Search from './Components/GoogleAPI';
 
 const Post = ({post}) => {
+	const date = moment.unix(post.created).format('MMMM, YYYY');
 	return (
 		<View style={styles.post}>
 			<Text style={styles.title}>{post.title}</Text>
-			<Text style={styles.date}>{post.created}</Text>
+			<Text style={styles.date}>{date}</Text>
 		</View>
 	);
 };
