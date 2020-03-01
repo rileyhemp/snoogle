@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 8,
 		paddingVertical: 4,
 		borderBottomColor: '#aaada6',
+		backgroundColor: 'linear-gradient(to top, rgba(27,28,26,1) 0%,rgba(52,54,51,0) 100%)',
 	},
 	preview: {
 		overflow: 'hidden',

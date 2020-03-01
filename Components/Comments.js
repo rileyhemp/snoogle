@@ -4,7 +4,7 @@ import {getReplies} from './RedditAPI';
 import moment from 'moment';
 
 const Comment = ({comment, depth}) => {
-	const created = moment.unix(comment.created).format('MMM Do YYYY');
+	const date = moment.unix(comment.created).format('MM D YY');
 	const [maxDepth, setMaxDepth] = useState(2);
 	const onPressContinue = () => {
 		setMaxDepth(10);
@@ -12,17 +12,16 @@ const Comment = ({comment, depth}) => {
 	return (
 		<View style={styles.comment}>
 			<View style={styles.header}>
-				<Text>
-					{comment.score} {comment.author.name}
+				<Text style={styles.smallText}>
+					{comment.score} points • {comment.author.name}
 				</Text>
-				<Text>{created}</Text>
 			</View>
 			<Text style={styles.body}>{comment.body}</Text>
 			{comment.replies && depth < maxDepth ? (
 				comment.replies.map(comment => {
 					return <Comment key={comment.id} comment={comment} depth={depth + 1} />;
 				})
-			) : comment.replies ? (
+			) : comment.replies.length > 0 ? (
 				<Text style={styles.link} onPress={onPressContinue}>
 					Continue thread...
 				</Text>
@@ -43,16 +42,30 @@ export const Comments = ({comments}) => {
 
 const styles = StyleSheet.create({
 	comment: {
-		marginLeft: 16,
-		marginTop: 8,
+		paddingLeft: 24,
 	},
 	header: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
+		paddingRight: 8,
+		paddingTop: 12,
+		paddingBottom: 4,
+		alignItems: 'center',
 	},
 	body: {
 		borderBottomWidth: 0.25,
-		borderRightWidth: 0.25,
+		borderColor: '#aaada6',
 		paddingBottom: 4,
+		color: 'white',
+		paddingRight: 8,
+	},
+	smallText: {
+		fontSize: 12,
+		color: '#aaada6',
+	},
+	link: {
+		fontSize: 12,
+		color: '#5cc8ff',
+		marginTop: 4,
 	},
 });

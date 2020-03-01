@@ -42,7 +42,7 @@ export const getReplies = function(post) {
 
 				//Call the API
 				r.getSubmission(post)
-					.expandReplies()
+					.expandReplies({depth: 2})
 					.then(res => {
 						resolve(res);
 					})
