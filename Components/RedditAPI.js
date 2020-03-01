@@ -1,8 +1,10 @@
+import React from 'react';
 import axios from 'axios';
 import snoowrap from 'snoowrap';
+
 export const getPostsFromIDs = function(posts) {
 	return new Promise((resolve, reject) => {
-		//Authenticate the app
+		//Authenticate
 		snoowrap
 			.fromApplicationOnlyAuth({
 				clientId: 'S0qvSFIjP95kqw',
@@ -26,7 +28,7 @@ export const getPostsFromIDs = function(posts) {
 };
 export const getReplies = function(post) {
 	return new Promise((resolve, reject) => {
-		//Authenticate the app
+		//Authenticate
 		snoowrap
 			.fromApplicationOnlyAuth({
 				clientId: 'S0qvSFIjP95kqw',

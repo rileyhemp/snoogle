@@ -6,39 +6,39 @@ import moment from 'moment';
 
 export const Post = ({post}) => {
 	const date = moment.unix(post.created).format('MMMM YYYY');
-	const [previewLines, setPreviewLines] = useState(3);
+	const [showDetails, setShowDetails] = useState(false);
 	const [comments, setComments] = useState(null);
-	const [loading, setLoading] = useState(false);
 
 	const onClickPost = () => {
-		setLoading(true);
-		previewLines && !comments
+		!showDetails && !comments
 			? getReplies(post.id)
 					.then(res => {
 						setComments(res.comments);
-						setPreviewLines(null);
-						setLoading(false);
+						setShowDetails(true);
 					})
 					.catch(err => console.log(err))
-			: previewLines && comments
-			? setPreviewLines(null)
-			: setPreviewLines(3);
+			: showDetails && comments
+			? setShowDetails(true)
+			: setShowDetails(false);
 	};
 
 	return (
 		<ScrollView style={styles.post}>
 			<TouchableOpacity onPress={() => onClickPost()}>
 				<View style={styles.header}>
-					<Text style={styles.title}>{post.title}</Text>
-				</View>
-				<View style={styles.preview}>
-					<Text numberOfLines={previewLines} style={styles.content}>
-						{post.selftext}
-					</Text>
-					<View style={styles.footer}>
-						<Text style={styles.smallText}>{post.num_comments} comments</Text>
+					<View style={styles.flexBetween}>
+						<Text style={styles.title}>{post.title}</Text>
 						<Text style={styles.smallText}>{date}</Text>
 					</View>
+					<Text style={styles.smallText}>
+						{post.author.name} • {post.subreddit.display_name} • {post.thumbnail}
+					</Text>
+					<Text style={styles.smallText}>
+						{post.num_comments} comments • {post.score} points
+					</Text>
+				</View>
+				<View style={showDetails ? styles.contentVisible : styles.contentHidden}>
+					<Text style={styles.postText}>{post.selftext}</Text>
 				</View>
 			</TouchableOpacity>
 			{comments ? <Comments comments={comments} /> : null}
@@ -48,22 +48,46 @@ export const Post = ({post}) => {
 
 const styles = StyleSheet.create({
 	post: {
-		padding: 5,
 		borderColor: 'black',
 		borderBottomWidth: 0.25,
+		paddingVertical: 4,
+	},
+	flexBetween: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
 	},
 	title: {
 		fontSize: 16,
 		fontWeight: 'bold',
+		color: 'white',
+	},
+	postText: {
+		paddingHorizontal: 8,
+		color: 'white',
+		backgroundColor: '#494a48',
+		paddingVertical: 8,
+		borderBottomColor: '#aaada6',
+		borderBottomWidth: 0.25,
+	},
+	contentHidden: {
+		height: 0,
+		overflow: 'hidden',
+	},
+	contentVisible: {
+		overflow: 'visible',
 	},
 	header: {
 		borderBottomWidth: 0.25,
-		marginBottom: 5,
+		paddingHorizontal: 8,
+		paddingVertical: 4,
+		borderBottomColor: '#aaada6',
 	},
 	preview: {
 		overflow: 'hidden',
 	},
 	footer: {
+		paddingHorizontal: 8,
 		flexDirection: 'row',
 		justifyContent: 'flex-start',
 		justifyContent: 'space-between',
@@ -71,5 +95,7 @@ const styles = StyleSheet.create({
 	},
 	smallText: {
 		fontSize: 12,
+		color: 'white',
+		color: '#aaada6',
 	},
 });

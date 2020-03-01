@@ -33,11 +33,14 @@ const App: () => React$Node = () => {
 
 const styles = StyleSheet.create({
 	body: {
-		padding: 20,
+		backgroundColor: '#343633',
 	},
 });
 
 export default App;
+
+//#343633
+//#5cc8ff
 
 // const styles = StyleSheet.create({
 // 	scrollView: {

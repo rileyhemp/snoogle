@@ -12,13 +12,15 @@ const Comment = ({comment, depth}) => {
 	return (
 		<View style={styles.comment}>
 			<View style={styles.header}>
-				<Text>{comment.author.name}</Text>
+				<Text>
+					{comment.score} {comment.author.name}
+				</Text>
 				<Text>{created}</Text>
 			</View>
 			<Text style={styles.body}>{comment.body}</Text>
 			{comment.replies && depth < maxDepth ? (
 				comment.replies.map(comment => {
-					return <Comment comment={comment} depth={depth + 1} />;
+					return <Comment key={comment.id} comment={comment} depth={depth + 1} />;
 				})
 			) : comment.replies ? (
 				<Text style={styles.link} onPress={onPressContinue}>
@@ -33,7 +35,7 @@ export const Comments = ({comments}) => {
 	return (
 		<View>
 			{comments.map(comment => {
-				return <Comment comment={comment} depth={0} />;
+				return <Comment key={comment.id} comment={comment} depth={0} />;
 			})}
 		</View>
 	);
