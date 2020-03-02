@@ -1,4 +1,4 @@
-## Snoogle Search for Reddit
+## Snoogle
 
 A better way to search Reddit.
 
