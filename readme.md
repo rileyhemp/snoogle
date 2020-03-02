@@ -5,7 +5,7 @@ A better way to search and browse reddit self posts
 ## What's it do?
 
 Ever add site:reddit.com to the end of your google searches?
-This basically does that, with a few added benifits.
+This basically does that, with a few added benefits.
 
 ## Why not just use Reddit search?
 
