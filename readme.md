@@ -1,6 +1,6 @@
-# Snoogle v0.1
+## Snoogle Search for Reddit
 
-A better way to search Reddit.
+A better way to search and browse reddit self posts
 
 ## What's it do?
 
