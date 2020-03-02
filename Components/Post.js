@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, ScrollView, View, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {getReplies} from './RedditAPI';
 import {Comments} from './Comments';
 import moment from 'moment';
@@ -17,13 +17,13 @@ export const Post = ({post}) => {
 						setShowDetails(true);
 					})
 					.catch(err => console.log(err))
-			: showDetails && comments
+			: !showDetails && comments
 			? setShowDetails(true)
 			: setShowDetails(false);
 	};
 
 	return (
-		<ScrollView style={styles.post}>
+		<View style={styles.post}>
 			<TouchableOpacity onPress={() => onClickPost()}>
 				<View style={styles.header}>
 					<View style={styles.flexBetween}>
@@ -41,8 +41,8 @@ export const Post = ({post}) => {
 					<Text style={styles.postText}>{post.selftext}</Text>
 				</View>
 			</TouchableOpacity>
-			{comments ? <Comments comments={comments} /> : null}
-		</ScrollView>
+			{comments && showDetails ? <Comments comments={comments} /> : null}
+		</View>
 	);
 };
 
@@ -82,7 +82,6 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 8,
 		paddingVertical: 4,
 		borderBottomColor: '#aaada6',
-		backgroundColor: 'linear-gradient(to top, rgba(27,28,26,1) 0%,rgba(52,54,51,0) 100%)',
 	},
 	preview: {
 		overflow: 'hidden',

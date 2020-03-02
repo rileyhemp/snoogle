@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, StyleSheet, View, Text, StatusBar} from 'react-native';
+import {SafeAreaView, StyleSheet, ScrollView, StatusBar} from 'react-native';
 import moment from 'moment';
 import {getPostsFromIDs} from './Components/RedditAPI';
 import {Post} from './Components/Post';
@@ -7,9 +7,10 @@ import Search from './Components/GoogleAPI';
 
 const App: () => React$Node = () => {
 	const [postData, setPostData] = useState(undefined);
-	useEffect(() => {
-		postData != undefined ? console.log(postData[0]) : null;
-	});
+
+	const onClearResults = () => {
+		setPostData(undefined);
+	};
 	const handleSortedPosts = posts => {
 		//Expects an array of post IDs, and sends them to the Reddit API
 		getPostsFromIDs(posts)
@@ -20,12 +21,11 @@ const App: () => React$Node = () => {
 	return (
 		<>
 			<StatusBar barStyle="dark-content" />
-			<SafeAreaView>
-				<View style={styles.body}>
-					<Text>I am some extra text</Text>
-					<Search onSortedPosts={handleSortedPosts} />
-					{postData != undefined ? <Post post={postData[0]} /> : null}
-				</View>
+			<SafeAreaView style={styles.body}>
+				<Search onSortedPosts={handleSortedPosts} clearResults={onClearResults} />
+				<ScrollView>
+					{postData != undefined ? postData.map(post => <Post key={post.index} post={post} />) : null}
+				</ScrollView>
 			</SafeAreaView>
 		</>
 	);
@@ -34,6 +34,7 @@ const App: () => React$Node = () => {
 const styles = StyleSheet.create({
 	body: {
 		backgroundColor: '#343633',
+		height: '100%',
 	},
 });
 

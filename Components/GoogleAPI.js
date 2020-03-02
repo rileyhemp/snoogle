@@ -1,41 +1,40 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {View, Text, Button} from 'react-native';
+import {View, Text, TextInput, StyleSheet} from 'react-native';
 import {config} from '../config';
 import AsyncStorage from '@react-native-community/async-storage';
 import {flatten} from 'lodash';
-import {results} from './results';
 
 export default class Search extends Component {
 	constructor(props) {
 		super(props);
-		this.query = {
+		this.config = {
 			key: config.GOOGLE_API_KEY,
 			cx: config.GOOGLE_CSE_ID,
-			q: 'best knives cooking', //props.query,
-			//Only pull the link and meta description, which contains the number of comments and upvotes.
-			fields: 'items(link,pagemap(metatags(og:description)))',
+			fields: 'items(link,pagemap(metatags(og:description)))', //Only pull the link and meta description (shows upvotes and comments)
 		};
 	}
 	state = {
-		results: results,
+		results: null,
+		query: null,
 	};
 
 	search() {
+		this.props.clearResults();
 		/* Searches the top n pages of google and creates a new array with 
 		those results. Reason: google is good at finding keywords, but not good at finding posts
 		which have many replies. This lets us choose the most active posts. */
 
 		const searchResults = [];
-		const pagesToSearch = 3;
 
-		for (let i = 0; i < pagesToSearch; i++) {
+		for (let i = 0; i < 1; i++) {
 			searchResults.push(
 				new Promise((resolve, reject) => {
 					axios
 						.get(`https://www.googleapis.com/customsearch/v1`, {
 							params: {
-								...this.query,
+								...this.config,
+								q: this.state.query,
 								start: i * 10 + 1,
 							},
 						})
@@ -45,16 +44,14 @@ export default class Search extends Component {
 			);
 		}
 		Promise.all(searchResults).then(res => {
-			console.log(JSON.stringify([...res[0].items, ...res[1].items, ...res[2].items]));
-			// this.setState({
-			// 	results: [...res[0].items, ...res[1].items, ...res[2].items],
-			// });
+			console.log(res);
+			this.sortByComments([...res[0].items]); //, ...res[1].items, ...res[2].items]
 		});
 	}
-
 	sortByComments(posts) {
-		//Use meta description to determine which posts had replies,
-		//and assign the number of replies as a prop
+		console.log('sorting', posts);
+		//Expects an array of search results from google
+		//Uses meta description to sort posts by number of replies
 
 		const postsWithReplies = [];
 
@@ -82,7 +79,34 @@ export default class Search extends Component {
 		this.props.onSortedPosts(postIDs);
 	}
 
+	onChangeText(text) {
+		this.setState({query: text});
+	}
+
 	render() {
-		return <Button title="Search" onPress={() => this.sortByComments(results)} />;
+		return (
+			<TextInput
+				style={styles.searchbar}
+				inlineImageLeft="snoo"
+				inlineImagePadding={16}
+				returnKeyType="search"
+				onEndEditing={() => this.search()}
+				dogs
+				onChangeText={text => this.onChangeText(text)}
+			/>
+		);
+		//return <Button title="Search" onPress={() => this.sortByComments(results)} />;
 	}
 }
+
+const styles = StyleSheet.create({
+	searchbar: {
+		flexDirection: 'row',
+		marginHorizontal: 24,
+		backgroundColor: 'white',
+		borderRadius: 50,
+		paddingHorizontal: 12,
+		marginTop: 24,
+		marginBottom: 12,
+	},
+});
