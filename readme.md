@@ -4,8 +4,8 @@ A better way to search and browse reddit self posts
 
 ## What's it do?
 
-Whenever I want impartial and generally good information, I'll search for whatever I'm looking for followed by site:reddit.com.
-This basically does that for me, with a few added benifits.
+Ever add site:reddit.com to the end of your google searches?
+This basically does that, with a few added benifits.
 
 ## Why not just use Reddit search?
 
