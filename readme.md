@@ -1,6 +1,6 @@
 ## Snoogle Search for Reddit
 
-A better way to search and browse reddit self posts
+A better way to search Reddit. Built using React Native.
 
 ### What's it do?
 
