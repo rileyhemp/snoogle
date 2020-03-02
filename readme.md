@@ -1,4 +1,4 @@
-# Introducing Snoogle
+# Snoogle v0.1
 
 A better way to search Reddit.
 
@@ -17,4 +17,4 @@ Google is actually pretty bad at finding Reddit posts that have many replies. Sn
 
 ## Installation
 
-Coming soon
+Coming soon...
