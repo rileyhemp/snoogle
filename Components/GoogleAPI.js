@@ -21,13 +21,12 @@ export default class Search extends Component {
 
 	search() {
 		this.props.clearResults();
-		/* Searches the top n pages of google and creates a new array with 
+		/* Searches the top 3 pages of google and creates a new array with 
 		those results. Reason: google is good at finding keywords, but not good at finding posts
 		which have many replies. This lets us choose the most active posts. */
 
 		const searchResults = [];
-
-		for (let i = 0; i < 1; i++) {
+		for (let i = 0; i < 3; i++) {
 			searchResults.push(
 				new Promise((resolve, reject) => {
 					axios
@@ -44,12 +43,10 @@ export default class Search extends Component {
 			);
 		}
 		Promise.all(searchResults).then(res => {
-			console.log(res);
-			this.sortByComments([...res[0].items]); //, ...res[1].items, ...res[2].items]
+			this.sortByComments([...res[0].items, ...res[1].items, ...res[2].items]);
 		});
 	}
 	sortByComments(posts) {
-		console.log('sorting', posts);
 		//Expects an array of search results from google
 		//Uses meta description to sort posts by number of replies
 
@@ -106,7 +103,7 @@ const styles = StyleSheet.create({
 		backgroundColor: 'white',
 		borderRadius: 50,
 		paddingHorizontal: 12,
-		marginTop: 24,
+		marginTop: 18,
 		marginBottom: 12,
 	},
 });

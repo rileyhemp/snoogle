@@ -31,7 +31,7 @@ export const Post = ({post}) => {
 						<Text style={styles.smallText}>{date}</Text>
 					</View>
 					<Text style={styles.smallText}>
-						{post.author.name} • {post.subreddit.display_name} • {post.thumbnail}
+						{post.author.name} • {post.subreddit.display_name}
 					</Text>
 					<Text style={styles.smallText}>
 						{post.num_comments} comments • {post.score} points
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
 	post: {
 		borderColor: 'black',
 		borderBottomWidth: 0.25,
-		paddingVertical: 4,
+		paddingTop: 4,
 	},
 	flexBetween: {
 		flexDirection: 'row',
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
 	header: {
 		borderBottomWidth: 0.25,
 		paddingHorizontal: 8,
-		paddingVertical: 4,
+		paddingBottom: 8,
 		borderBottomColor: '#aaada6',
 	},
 	preview: {
