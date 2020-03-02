@@ -26,7 +26,7 @@ export default class Search extends Component {
 		which have many replies. This lets us choose the most active posts. */
 
 		const searchResults = [];
-		for (let i = 0; i < 3; i++) {
+		for (let i = 0; i < 1; i++) {
 			searchResults.push(
 				new Promise((resolve, reject) => {
 					axios
@@ -43,7 +43,7 @@ export default class Search extends Component {
 			);
 		}
 		Promise.all(searchResults).then(res => {
-			this.sortByComments([...res[0].items, ...res[1].items, ...res[2].items]);
+			this.sortByComments([...res[0].items]); //, ...res[1].items, ...res[2].items
 		});
 	}
 	sortByComments(posts) {
