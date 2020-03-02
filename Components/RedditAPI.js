@@ -1,13 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 import snoowrap from 'snoowrap';
+import {config} from '../config';
 
 export const getPostsFromIDs = function(posts) {
 	return new Promise((resolve, reject) => {
 		//Authenticate
 		snoowrap
 			.fromApplicationOnlyAuth({
-				clientId: 'S0qvSFIjP95kqw',
+				clientId: config.REDDIT_CLIENT_ID,
 				deviceId: 'DO_NOT_TRACK_THIS_DEVICE',
 				grantType: snoowrap.grantType.INSTALLED_CLIENT,
 			})
