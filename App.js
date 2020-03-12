@@ -4,6 +4,7 @@ import moment from 'moment';
 import {getPostsFromIDs} from './Components/RedditAPI';
 import {Post} from './Components/Post';
 import Search from './Components/GoogleAPI';
+import {TempData} from './TempData';
 
 const App: () => React$Node = () => {
 	const [postData, setPostData] = useState(undefined);
@@ -14,7 +15,7 @@ const App: () => React$Node = () => {
 	const handleSortedPosts = posts => {
 		//Expects an array of post IDs, and sends them to the Reddit API
 		getPostsFromIDs(posts)
-			.then(res => setPostData(res))
+			.then(res => console.log(JSON.stringify(res)))
 			.catch(err => console.log(err));
 	};
 

@@ -26,7 +26,7 @@ export default class Search extends Component {
 		which have many replies. This lets us choose the most active posts. */
 
 		const searchResults = [];
-		for (let i = 0; i < 1; i++) {
+		for (let i = 0; i < 3; i++) {
 			searchResults.push(
 				new Promise((resolve, reject) => {
 					axios
@@ -43,7 +43,9 @@ export default class Search extends Component {
 			);
 		}
 		Promise.all(searchResults).then(res => {
-			this.sortByComments([...res[0].items]); //, ...res[1].items, ...res[2].items
+			let results = [];
+			res.forEach(el => results.push(el.items));
+			this.sortByComments(flatten(results));
 		});
 	}
 	sortByComments(posts) {
@@ -87,12 +89,14 @@ export default class Search extends Component {
 				inlineImageLeft="snoo"
 				inlineImagePadding={16}
 				returnKeyType="search"
+				autoFocus={true}
+				clearTextOnFocus={true}
 				onEndEditing={() => this.search()}
 				dogs
 				onChangeText={text => this.onChangeText(text)}
+				placeholder="Ask a question"
 			/>
 		);
-		//return <Button title="Search" onPress={() => this.sortByComments(results)} />;
 	}
 }
 
@@ -102,8 +106,8 @@ const styles = StyleSheet.create({
 		marginHorizontal: 24,
 		backgroundColor: 'white',
 		borderRadius: 50,
-		paddingHorizontal: 12,
-		marginTop: 18,
+		paddingHorizontal: 7,
+		marginTop: 24,
 		marginBottom: 12,
 	},
 });
