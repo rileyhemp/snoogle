@@ -11,6 +11,7 @@ export default class Search extends Component {
 		this.config = {
 			key: config.GOOGLE_API_KEY,
 			cx: config.GOOGLE_CSE_ID,
+			pagesToSearch: 1,
 			fields: 'items(link,pagemap(metatags(og:description)))', //Only pull the link and meta description (shows upvotes and comments)
 		};
 	}
@@ -21,12 +22,12 @@ export default class Search extends Component {
 
 	search() {
 		this.props.clearResults();
-		/* Searches the top 3 pages of google and creates a new array with 
-		those results. Reason: google is good at finding keywords, but not good at finding posts
-		which have many replies. This lets us choose the most active posts. */
+
+		/* Searches the top n pages of google and creates a new array with 
+		those results. */
 
 		const searchResults = [];
-		for (let i = 0; i < 3; i++) {
+		for (let i = 0; i < this.config.pagesToSearch; i++) {
 			searchResults.push(
 				new Promise((resolve, reject) => {
 					axios
@@ -49,11 +50,12 @@ export default class Search extends Component {
 		});
 	}
 	sortByComments(posts) {
-		//Expects an array of search results from google
-		//Uses meta description to sort posts by number of replies
+		//Uses google's meta description to sort posts by number of replies
 
 		const postsWithReplies = [];
 
+		//Get the number of comments from the meta description and filters out posts with zero comments.
+		//Description looks like this: '125 points and 26 comments'
 		for (let i = 0; i < posts.length; i++) {
 			if (posts[i].pagemap) {
 				const description = posts[i].pagemap.metatags[0]['og:description'];
@@ -62,12 +64,10 @@ export default class Search extends Component {
 			}
 		}
 
-		//Sort the posts by comments
-
+		//Sort by comments high to low
 		postsWithReplies.sort((a, b) => b.totalComments - a.totalComments);
 
-		//Create array of post ids and send to the handler
-
+		//Get the post IDs from the URL, push to an array, and send to handler.
 		const postIDs = [];
 
 		postsWithReplies.forEach(el => {
