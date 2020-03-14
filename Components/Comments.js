@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
-import {getReplies} from './RedditAPI';
-import moment from 'moment';
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import moment from "moment";
 
-const Comment = ({comment, depth}) => {
-	const date = moment.unix(comment.created).format('MM D YY');
+const Comment = ({ comment, depth }) => {
+	const date = moment.unix(comment.created).format("MM D YY");
 	const [maxDepth, setMaxDepth] = useState(2);
 	const [hideSelf, setHideSelf] = useState(false);
 	const onPressContinue = () => {
@@ -41,7 +40,7 @@ const Comment = ({comment, depth}) => {
 	);
 };
 
-export const Comments = ({comments}) => {
+export const Comments = ({ comments }) => {
 	return (
 		<View>
 			{comments.map(comment => {
@@ -53,42 +52,42 @@ export const Comments = ({comments}) => {
 
 const styles = StyleSheet.create({
 	comment: {
-		paddingLeft: 24,
+		paddingLeft: 24
 	},
 	hiddenLink: {
 		paddingLeft: 4,
 		marginLeft: 20,
 		fontSize: 12,
-		color: '#5cc8ff',
+		color: "#5cc8ff",
 		marginVertical: 4,
-		paddingTop: 12,
+		paddingTop: 12
 	},
 	header: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
+		flexDirection: "row",
+		justifyContent: "space-between",
 		paddingRight: 8,
 		paddingTop: 8,
 		paddingBottom: 4,
-		alignItems: 'center',
+		alignItems: "center"
 	},
 	body: {
 		borderBottomWidth: 0.25,
-		borderColor: '#aaada6',
+		borderColor: "#aaada6",
 		paddingBottom: 8,
-		color: 'white',
-		paddingRight: 8,
+		color: "white",
+		paddingRight: 8
 	},
 	hidden: {
 		height: 0,
-		overflow: 'hidden',
+		overflow: "hidden"
 	},
 	smallText: {
 		fontSize: 12,
-		color: '#aaada6',
+		color: "#aaada6"
 	},
 	link: {
 		fontSize: 12,
-		color: '#5cc8ff',
-		marginTop: 4,
-	},
+		color: "#5cc8ff",
+		marginTop: 4
+	}
 });

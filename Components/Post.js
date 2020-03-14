@@ -1,11 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
-import {getReplies} from './RedditAPI';
-import {Comments} from './Comments';
-import moment from 'moment';
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { Comments } from "./Comments";
+import moment from "moment";
 
-export const Post = ({post}) => {
-	const date = moment.unix(post.created).format('MMMM YYYY');
+export const Post = ({ post }) => {
+	const date = moment.unix(post.created).format("MMMM YYYY");
 	const [showDetails, setShowDetails] = useState(false);
 	const [comments, setComments] = useState(null);
 
@@ -48,54 +47,54 @@ export const Post = ({post}) => {
 
 const styles = StyleSheet.create({
 	post: {
-		borderColor: 'black',
+		borderColor: "black",
 		borderBottomWidth: 0.25,
-		paddingTop: 4,
+		paddingTop: 4
 	},
 	flexBetween: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center',
+		flexDirection: "row",
+		justifyContent: "space-between",
+		alignItems: "center"
 	},
 	title: {
 		fontSize: 16,
-		fontWeight: 'bold',
-		color: 'white',
+		fontWeight: "bold",
+		color: "white"
 	},
 	postText: {
 		paddingHorizontal: 8,
-		color: 'white',
-		backgroundColor: '#494a48',
+		color: "white",
+		backgroundColor: "#494a48",
 		paddingVertical: 8,
-		borderBottomColor: '#aaada6',
-		borderBottomWidth: 0.25,
+		borderBottomColor: "#aaada6",
+		borderBottomWidth: 0.25
 	},
 	contentHidden: {
 		height: 0,
-		overflow: 'hidden',
+		overflow: "hidden"
 	},
 	contentVisible: {
-		overflow: 'visible',
+		overflow: "visible"
 	},
 	header: {
 		borderBottomWidth: 0.25,
 		paddingHorizontal: 8,
 		paddingBottom: 8,
-		borderBottomColor: '#aaada6',
+		borderBottomColor: "#aaada6"
 	},
 	preview: {
-		overflow: 'hidden',
+		overflow: "hidden"
 	},
 	footer: {
 		paddingHorizontal: 8,
-		flexDirection: 'row',
-		justifyContent: 'flex-start',
-		justifyContent: 'space-between',
-		marginTop: 4,
+		flexDirection: "row",
+		justifyContent: "flex-start",
+		justifyContent: "space-between",
+		marginTop: 4
 	},
 	smallText: {
 		fontSize: 12,
-		color: 'white',
-		color: '#aaada6',
-	},
+		color: "white",
+		color: "#aaada6"
+	}
 });
