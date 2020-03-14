@@ -8,11 +8,17 @@ import { Post } from "../Components/Post";
 
 function mapState({ posts }) {
 	return {
-		posts
+		...posts
 	};
 }
 
 class Results extends Component {
+	state = {
+		postData: undefined
+	};
+	handlePostData(postData) {
+		this.setState({ postData: postData });
+	}
 	getPostsFromIDs(posts) {
 		return new Promise((resolve, reject) => {
 			//Authenticate
@@ -62,16 +68,20 @@ class Results extends Component {
 				.catch(err => reject(err));
 		});
 	}
+	componentDidUpdate(prevProps) {
+		if (this.props.postIDs.join() != prevProps.postIDs.join()) {
+			this.getPostsFromIDs(this.props.postIDs).then(postData => this.handlePostData(postData));
+		}
+	}
 	render() {
 		return (
-			// <ScrollView>
-			// 	{postData != undefined
-			// 		? postData.map(post => {
-			// 				return post.thumbnail === "self" ? <Post key={postData.indexOf(post)} post={post} /> : null;
-			// 		  })
-			// 		: null}
-			// </ScrollView>
-			null
+			<ScrollView>
+				{this.state.postData != undefined
+					? this.state.postData.map(post => {
+							return post.thumbnail === "self" ? <Post key={this.state.postData.indexOf(post)} post={post} /> : null;
+					  })
+					: null}
+			</ScrollView>
 		);
 	}
 }

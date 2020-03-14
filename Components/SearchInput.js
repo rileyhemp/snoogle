@@ -10,7 +10,6 @@ export default class SearchInput extends Component {
 	}
 	onSearch(query) {
 		this.props.handleSearch(query);
-		this.setState({ query: null });
 	}
 	render() {
 		return (
