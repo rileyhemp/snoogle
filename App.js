@@ -1,10 +1,13 @@
 import React from "react";
 import { SafeAreaView, StyleSheet, StatusBar } from "react-native";
 import { Provider } from "react-redux";
-import store from "./Redux/store";
+import { createStore } from "redux";
+import rootReducer from "./Redux/Reducers";
 import moment from "moment";
 import Search from "./Containers/Search";
 import Results from "./Containers/Results";
+
+const store = createStore(rootReducer);
 
 const App: () => React$Node = () => {
 	return (

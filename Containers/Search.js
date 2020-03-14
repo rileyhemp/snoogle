@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { config } from "../config";
+import { connect } from "react-redux";
 import { flatten } from "lodash";
+import { config } from "../config";
 import SearchInput from "../Components/SearchInput";
+import { getPosts } from "../Redux/actions";
 
-export default class Search extends Component {
+class Search extends Component {
 	constructor(props) {
 		super(props);
 		this.config = {
@@ -39,6 +41,7 @@ export default class Search extends Component {
 			let results = [];
 			res.forEach(el => results.push(el.items));
 			console.log(flatten(results));
+			this.props.getPosts(flatten(results));
 		});
 	};
 
@@ -75,3 +78,5 @@ export default class Search extends Component {
 		return <SearchInput handleSearch={this.doSearch} />;
 	}
 }
+
+export default connect(null, { getPosts })(Search);

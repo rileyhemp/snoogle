@@ -1,11 +1,18 @@
 import React, { Component } from "react";
 import { ScrollView } from "react-native";
+import { connect } from "react-redux";
 import axios from "axios";
 import snoowrap from "snoowrap";
 import { config } from "../config";
 import { Post } from "../Components/Post";
 
-export default class Results extends Component {
+function mapState({ posts }) {
+	return {
+		posts
+	};
+}
+
+class Results extends Component {
 	getPostsFromIDs(posts) {
 		return new Promise((resolve, reject) => {
 			//Authenticate
@@ -68,3 +75,5 @@ export default class Results extends Component {
 		);
 	}
 }
+
+export default connect(mapState)(Results);
