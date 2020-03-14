@@ -6,9 +6,9 @@ import snoowrap from "snoowrap";
 import { config } from "../config";
 import { Post } from "../Components/Post";
 
-function mapState({ posts }) {
+function mapState({ postIDs }) {
 	return {
-		...posts
+		...postIDs
 	};
 }
 
@@ -17,6 +17,7 @@ class Results extends Component {
 		postData: undefined
 	};
 	handlePostData(postData) {
+		console.log("here");
 		this.setState({ postData: postData });
 	}
 	getPostsFromIDs(posts) {
@@ -69,7 +70,7 @@ class Results extends Component {
 		});
 	}
 	componentDidUpdate(prevProps) {
-		if (this.props.postIDs.join() != prevProps.postIDs.join()) {
+		if (this.props.postIDs?.join() != prevProps.postIDs?.join()) {
 			this.getPostsFromIDs(this.props.postIDs).then(postData => this.handlePostData(postData));
 		}
 	}
