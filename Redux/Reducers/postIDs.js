@@ -21,7 +21,7 @@ const postIDs = (state = {}, action) => {
 	} else return state;
 };
 
-export default posts;
+export default postIDs;
 
 // sortByComments(posts) {
 // 	//Uses google's meta description to sort posts by number of replies
