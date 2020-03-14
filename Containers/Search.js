@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { View, Text, TextInput, StyleSheet } from "react-native";
 import { config } from "../config";
 import { flatten } from "lodash";
 import SearchInput from "../Components/SearchInput";
@@ -15,21 +14,10 @@ export default class Search extends Component {
 			fields: "items(link,pagemap(metatags(og:description)))" //Only pull the link and meta description (shows upvotes and comments)
 		};
 	}
-	state = {
-		results: null,
-		query: null
-	};
 
-	handleSearch(query) {
-		console.log("searching ", query);
-	}
-
-	search() {
-		this.props.clearResults();
-
+	doSearch = query => {
 		/* Searches the top n pages of google and creates a new array with 
 		those results. */
-
 		const searchResults = [];
 		for (let i = 0; i < this.config.pagesToSearch; i++) {
 			searchResults.push(
@@ -38,7 +26,7 @@ export default class Search extends Component {
 						.get(`https://www.googleapis.com/customsearch/v1`, {
 							params: {
 								...this.config,
-								q: this.state.query,
+								q: query,
 								start: i * 10 + 1
 							}
 						})
@@ -50,9 +38,10 @@ export default class Search extends Component {
 		Promise.all(searchResults).then(res => {
 			let results = [];
 			res.forEach(el => results.push(el.items));
-			this.sortByComments(flatten(results));
+			console.log(flatten(results));
 		});
-	}
+	};
+
 	sortByComments(posts) {
 		//Uses google's meta description to sort posts by number of replies
 
@@ -82,11 +71,7 @@ export default class Search extends Component {
 		this.props.onSortedPosts(postIDs);
 	}
 
-	onChangeText(text) {
-		this.setState({ query: text });
-	}
-
 	render() {
-		return <SearchInput onSearch={this.handleSearch} />;
+		return <SearchInput handleSearch={this.doSearch} />;
 	}
 }

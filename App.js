@@ -1,9 +1,7 @@
 import React from "react";
 import { SafeAreaView, StyleSheet, StatusBar } from "react-native";
 import { Provider } from "react-redux";
-import { createStore } from "redux"; //????
-import reducer from "./reducer";
-import store from "./store";
+import store from "./Redux/store";
 import moment from "moment";
 import Search from "./Containers/Search";
 import Results from "./Containers/Results";

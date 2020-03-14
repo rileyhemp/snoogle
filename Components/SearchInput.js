@@ -8,6 +8,10 @@ export default class SearchInput extends Component {
 	onChangeText(text) {
 		this.setState({ query: text });
 	}
+	onSearch(query) {
+		this.props.handleSearch(query);
+		this.setState({ query: null });
+	}
 	render() {
 		return (
 			<TextInput
@@ -17,7 +21,7 @@ export default class SearchInput extends Component {
 				returnKeyType="search"
 				autoFocus={true}
 				clearTextOnFocus={true}
-				onEndEditing={() => this.props.onSearch(this.state.query)}
+				onEndEditing={() => this.onSearch(this.state.query)}
 				dogs
 				onChangeText={text => this.onChangeText(text)}
 				placeholder="Ask a question"
