@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Comments } from "./Comments";
 import moment from "moment";
 
-export const Post = ({ post }) => {
+export const Post = ({ post, getReplies }) => {
 	const date = moment.unix(post.created).format("MMMM YYYY");
 	const [showDetails, setShowDetails] = useState(false);
 	const [comments, setComments] = useState(null);

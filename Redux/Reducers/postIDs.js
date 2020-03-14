@@ -1,5 +1,4 @@
 const postIDs = (state = {}, action) => {
-	console.log(action);
 	if (action.type === "GET_POSTS") {
 		const searchResults = action.payload.posts;
 		const filteredResults = [];

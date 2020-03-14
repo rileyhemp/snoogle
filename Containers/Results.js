@@ -17,7 +17,6 @@ class Results extends Component {
 		postData: undefined
 	};
 	handlePostData(postData) {
-		console.log("here");
 		this.setState({ postData: postData });
 	}
 	getPostsFromIDs(posts) {
@@ -79,7 +78,9 @@ class Results extends Component {
 			<ScrollView>
 				{this.state.postData != undefined
 					? this.state.postData.map(post => {
-							return post.thumbnail === "self" ? <Post key={this.state.postData.indexOf(post)} post={post} /> : null;
+							return post.thumbnail === "self" ? (
+								<Post key={this.state.postData.indexOf(post)} post={post} getReplies={this.getReplies} />
+							) : null;
 					  })
 					: null}
 			</ScrollView>
