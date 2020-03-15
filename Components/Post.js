@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import { connect } from "react-redux";
 import { Comments } from "./Comments";
 import moment from "moment";
-import { setLoading } from "../Redux/actions";
 
-const Post = ({ post, getReplies, toggleFullHeight }) => {
+export const Post = ({ post, getReplies, toggleFullHeight }) => {
 	const date = moment.unix(post.created).format("MMMM YYYY");
 	const [showDetails, setShowDetails] = useState(false);
 	const [comments, setComments] = useState(null);
@@ -49,8 +47,6 @@ const Post = ({ post, getReplies, toggleFullHeight }) => {
 		</View>
 	);
 };
-
-export default connect(null, { setLoading })(Post);
 
 const styles = StyleSheet.create({
 	post: {

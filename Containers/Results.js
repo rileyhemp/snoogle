@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import axios from "axios";
 import snoowrap from "snoowrap";
 import { config } from "../config";
-import Post from "../Components/Post";
+import { Post } from "../Components/Post";
 import { TempData } from "../TempData";
 
 function mapState({ postIDs }) {
