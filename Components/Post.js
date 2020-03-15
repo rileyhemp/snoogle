@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import { Comments } from "./Comments";
 import moment from "moment";
 
@@ -43,6 +43,7 @@ export const Post = ({ post, getReplies, toggleFullHeight }) => {
 					<Text style={styles.postText}>{post.selftext}</Text>
 				</View>
 			</TouchableOpacity>
+			{!comments && showDetails ? <ActivityIndicator size="large" color="white" style={styles.spinner} /> : null}
 			{comments && showDetails ? <Comments comments={comments} /> : null}
 		</View>
 	);
@@ -117,5 +118,8 @@ const styles = StyleSheet.create({
 	},
 	date: {
 		paddingTop: 3
+	},
+	spinner: {
+		top: 50
 	}
 });

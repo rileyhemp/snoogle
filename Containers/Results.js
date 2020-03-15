@@ -16,12 +16,21 @@ function mapState({ postIDs }) {
 class Results extends Component {
 	state = {
 		postData: undefined,
-		isFullHeight: false
+		isFullHeight: false,
+		scrollY: 0
 	};
 	handlePostData(postData) {
 		this.setState({ postData: postData });
 	}
+	handleScroll(value) {
+		console.log(value);
+		this.setState({ scrollY: value });
+	}
 	toggleFullHeight = () => {
+		//Scroll current post to top on open, scroll back to last position on close.
+		!this.state.isFullHeight
+			? this.scroller.scrollTo({ y: 0, animated: false })
+			: this.scroller.scrollTo({ y: this.state.scrollY, animated: false });
 		this.setState(prevState => ({
 			isFullHeight: !prevState.isFullHeight
 		}));
@@ -84,7 +93,16 @@ class Results extends Component {
 	}
 	render() {
 		return (
-			<ScrollView style={this.state.isFullHeight ? styles.fullHeight : null}>
+			<ScrollView
+				onScrollEndDrag={event => {
+					this.handleScroll(event.nativeEvent.contentOffset.y);
+				}}
+				style={this.state.isFullHeight ? styles.fullHeight : null}
+				ref={scroller => {
+					this.scroller = scroller;
+				}}
+				scrollToOverflowEnabled={true}
+			>
 				{this.state.postData != undefined
 					? this.state.postData.map(post => {
 							return post.thumbnail === "self" ? (
