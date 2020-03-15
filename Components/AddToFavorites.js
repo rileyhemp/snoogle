@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import moment from "moment";
 import theme from "../theme";
 
-export const AddToFavorites = ({ parent, addFavorite, hideParent }) => {
+export const AddToFavorites = ({ parent, addFavorite, hideParent, back }) => {
 	const onAddFavorite = () => {
 		console.log("adding favorite");
 	};
@@ -15,7 +15,7 @@ export const AddToFavorites = ({ parent, addFavorite, hideParent }) => {
 		<View style={styles.toolbar}>
 			<View style={styles.flex}>
 				<TouchableOpacity onPress={onHideParent}>
-					<Text style={[styles.padRight, styles.textButton]}>HIDE</Text>
+					<Text style={[styles.padRight, styles.textButton]}>{back ? "BACK" : "HIDE"}</Text>
 				</TouchableOpacity>
 				<TouchableOpacity onPress={onAddFavorite}>
 					<Text style={[styles.padRight, styles.textButton]}>SAVE</Text>
