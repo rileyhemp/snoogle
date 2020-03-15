@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import { AddToFavorites } from "./AddToFavorites";
+import AddToFavorites from "./AddToFavorites";
 import moment from "moment";
 import theme from "../theme";
 
-const Comment = ({ comment, depth }) => {
+const Comment = ({ comment, depth, addToFavorites }) => {
 	const date = moment.unix(comment.created).format("MM D YY");
 	const [maxDepth, setMaxDepth] = useState(2);
 	const [hideSelf, setHideSelf] = useState(false);
@@ -35,7 +35,7 @@ const Comment = ({ comment, depth }) => {
 				<Text style={styles.body} onPress={() => toggleShowDetails(true)}>
 					{comment.body}
 				</Text>
-				{showDetails ? <AddToFavorites hideParent={handleHideSelf} /> : null}
+				{showDetails ? <AddToFavorites hideParent={handleHideSelf} parent={comment} addToFavorites={addToFavorites} /> : null}
 				{comment.replies && depth < maxDepth ? (
 					comment.replies.map(comment => {
 						return <Comment key={comment.id} comment={comment} depth={depth + 1} />;
@@ -50,11 +50,11 @@ const Comment = ({ comment, depth }) => {
 	);
 };
 
-export const Comments = ({ comments }) => {
+export const Comments = ({ comments, addToFavorites }) => {
 	return (
 		<View style={styles.commentsContainer}>
 			{comments.map(comment => {
-				return <Comment key={comment.id} comment={comment} depth={0} />;
+				return <Comment key={comment.id} comment={comment} depth={0} addToFavorites={addToFavorites} />;
 			})}
 		</View>
 	);
@@ -63,9 +63,6 @@ export const Comments = ({ comments }) => {
 const styles = StyleSheet.create({
 	comment: {
 		paddingLeft: 24
-	},
-	commentsContainer: {
-		width: "100%"
 	},
 	hiddenLink: {
 		paddingLeft: 4,

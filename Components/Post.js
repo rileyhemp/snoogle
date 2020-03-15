@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import { Comments } from "./Comments";
-import { AddToFavorites } from "./AddToFavorites";
+import AddToFavorites from "./AddToFavorites";
 import moment from "moment";
 import theme from "../theme";
 
-export const Post = ({ post, getReplies, toggleFullHeight }) => {
+export const Post = ({ post, getReplies, toggleFullHeight, addToFavorites }) => {
 	const date = moment.unix(post.created).format("MMMM YYYY");
 	const [showDetails, setShowDetails] = useState(false);
 	const [comments, setComments] = useState(null);
@@ -51,9 +51,9 @@ export const Post = ({ post, getReplies, toggleFullHeight }) => {
 					<Text style={styles.postText}>{post.selftext}</Text>
 				</View>
 			</TouchableOpacity>
-			{showDetails ? <AddToFavorites hideParent={onClickPost} back={true} /> : null}
+			{showDetails ? <AddToFavorites hideParent={onClickPost} back={true} parent={post} addToFavorites={addToFavorites} /> : null}
 			{!comments && showDetails ? <ActivityIndicator size="large" color={theme.textPrimary} style={styles.spinner} /> : null}
-			{comments && showDetails ? <Comments comments={comments} /> : null}
+			{comments && showDetails ? <Comments comments={comments} addToFavorites={addToFavorites} /> : null}
 		</View>
 	);
 };

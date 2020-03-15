@@ -1,12 +1,14 @@
 import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { connect } from "react-redux";
 import Icon from "react-native-vector-icons/FontAwesome";
 import moment from "moment";
 import theme from "../theme";
+import { addFavorite } from "../Redux/actions";
 
-export const AddToFavorites = ({ parent, addFavorite, hideParent, back }) => {
+const AddToFavorites = ({ parent, hideParent, back, addToFavorites }) => {
 	const onAddFavorite = () => {
-		console.log("adding favorite");
+		addToFavorites(parent);
 	};
 	const onHideParent = () => {
 		hideParent(true);
@@ -61,3 +63,5 @@ const styles = StyleSheet.create({
 		paddingRight: 20
 	}
 });
+
+export default connect(null, { addFavorite })(AddToFavorites);

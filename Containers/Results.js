@@ -59,6 +59,9 @@ class Results extends Component {
 			// 	.catch(err => reject(err));
 		});
 	}
+	handleAddFavorite = el => {
+		console.log("adding a fav");
+	};
 	getReplies(post) {
 		return new Promise((resolve, reject) => {
 			//Authenticate
@@ -112,6 +115,7 @@ class Results extends Component {
 									post={post}
 									getReplies={this.getReplies}
 									toggleFullHeight={this.toggleFullHeight}
+									addToFavorites={this.handleAddFavorite}
 								/>
 							) : null;
 					  })

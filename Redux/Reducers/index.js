@@ -1,7 +1,8 @@
 import { combineReducers } from "redux";
 
 export default combineReducers({
-	postIDs
+	postIDs,
+	favorites
 });
 
 function postIDs(state = {}, action) {
@@ -25,4 +26,11 @@ function postIDs(state = {}, action) {
 			postIDs: postIDs
 		};
 	} else return state;
+}
+
+function favorites(state = {}, action) {
+	console.log(action);
+	if (action.type === "ADD_FAVORITE") {
+	}
+	return state;
 }
