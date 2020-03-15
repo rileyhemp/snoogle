@@ -4,19 +4,21 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import moment from "moment";
 import theme from "../theme";
 
-export const AddToFavorites = ({ parent, addFavorite }) => {
+export const AddToFavorites = ({ parent, addFavorite, hideParent }) => {
 	const onAddFavorite = () => {
 		console.log("adding favorite");
 	};
 	const onHideParent = () => {
-		console.log("hiding parent");
+		hideParent(true);
 	};
 	return (
 		<View style={styles.toolbar}>
 			<TouchableOpacity onPress={onHideParent}>
 				<Text style={styles.hideButton}>HIDE</Text>
 			</TouchableOpacity>
-			<Icon.Button name="heart" backgroundColor="transparent" onPress={onAddFavorite} />
+			<TouchableOpacity onPress={onAddFavorite}>
+				<Icon name="heart" color="white" backgroundColor="transparent" size={16} />
+			</TouchableOpacity>
 		</View>
 	);
 };

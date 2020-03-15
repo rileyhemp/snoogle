@@ -64,7 +64,8 @@ const styles = StyleSheet.create({
 		top: 0,
 		bottom: 0,
 		backgroundColor: theme.background,
-		zIndex: 100
+		zIndex: 100,
+		width: "100%"
 	},
 	// post: {
 	// 	borderColor: "black",
