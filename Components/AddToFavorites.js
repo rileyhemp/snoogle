@@ -22,10 +22,11 @@ export const AddToFavorites = ({ parent, addFavorite, hideParent, back }) => {
 					{/* <Icon name="heart" color="white" backgroundColor="transparent" size={16} /> */}
 				</TouchableOpacity>
 			</View>
-			{/* <TouchableOpacity onPress={onAddFavorite}>
-				<Text style={styles.textButton}>OPEN IN REDDIT</Text>
-				<Icon name="heart" color="white" backgroundColor="transparent" size={16} />
-			</TouchableOpacity> */}
+			{back ? (
+				<TouchableOpacity onPress={onAddFavorite}>
+					<Text style={styles.textButton}>OPEN IN REDDIT</Text>
+				</TouchableOpacity>
+			) : null}
 		</View>
 	);
 };

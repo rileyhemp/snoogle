@@ -34,7 +34,7 @@ export const Post = ({ post, getReplies, toggleFullHeight }) => {
 
 	return (
 		<View style={[styles.post, showDetails ? styles.postActive : null]}>
-			<TouchableOpacity onPress={() => onClickPost()}>
+			<TouchableOpacity onPress={() => onClickPost()} disabled={showDetails}>
 				<View style={styles.header}>
 					<View style={styles.flexBetween}>
 						<Text style={styles.title}>{post.title}</Text>
