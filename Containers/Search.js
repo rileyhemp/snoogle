@@ -5,6 +5,7 @@ import { flatten } from "lodash";
 import { config } from "../config";
 import SearchInput from "../Components/SearchInput";
 import { getPosts } from "../Redux/actions";
+import theme from "../theme";
 
 class Search extends Component {
 	constructor(props) {

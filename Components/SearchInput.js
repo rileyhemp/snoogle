@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
+import theme from "../theme";
 
 export default class SearchInput extends Component {
 	state = {
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
 	searchbar: {
 		flexDirection: "row",
 		marginHorizontal: 24,
-		backgroundColor: "white",
+		backgroundColor: theme.textPrimary,
 		borderRadius: 50,
 		paddingHorizontal: 7,
 		marginTop: 24,

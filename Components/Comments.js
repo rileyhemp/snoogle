@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import moment from "moment";
+import theme from "../theme";
 
 const Comment = ({ comment, depth }) => {
 	const date = moment.unix(comment.created).format("MM D YY");
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
 		paddingLeft: 4,
 		marginLeft: 20,
 		fontSize: 12,
-		color: "#5cc8ff",
+		color: theme.link,
 		marginVertical: 4,
 		paddingTop: 12
 	},
@@ -72,9 +73,9 @@ const styles = StyleSheet.create({
 	},
 	body: {
 		borderBottomWidth: 0.25,
-		borderColor: "#aaada6",
+		borderColor: theme.textSecondary,
 		paddingBottom: 8,
-		color: "white",
+		color: theme.textPrimary,
 		paddingRight: 8
 	},
 	hidden: {
@@ -83,11 +84,11 @@ const styles = StyleSheet.create({
 	},
 	smallText: {
 		fontSize: 12,
-		color: "#aaada6"
+		color: theme.textSecondary
 	},
 	link: {
 		fontSize: 12,
-		color: "#5cc8ff",
+		color: theme.link,
 		marginTop: 4
 	}
 });

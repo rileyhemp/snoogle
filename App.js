@@ -6,6 +6,7 @@ import rootReducer from "./Redux/Reducers";
 import moment from "moment";
 import Search from "./Containers/Search";
 import Results from "./Containers/Results";
+import theme from "./theme";
 
 const store = createStore(rootReducer);
 
@@ -25,7 +26,7 @@ const App: () => React$Node = () => {
 
 const styles = StyleSheet.create({
 	body: {
-		backgroundColor: "#343633",
+		backgroundColor: theme.background,
 		height: "100%"
 	}
 });

@@ -6,6 +6,7 @@ import snoowrap from "snoowrap";
 import { config } from "../config";
 import { Post } from "../Components/Post";
 import { TempData } from "../TempData";
+import theme from "../theme";
 
 function mapState({ postIDs }) {
 	return {
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
 		position: "absolute",
 		top: 0,
 		bottom: 0,
-		backgroundColor: "#343633"
+		backgroundColor: theme.background
 	}
 });
 

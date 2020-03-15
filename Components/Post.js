@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import { Comments } from "./Comments";
+import { AddToFavorites } from "./AddToFavorites";
 import moment from "moment";
+import theme from "../theme";
 
 export const Post = ({ post, getReplies, toggleFullHeight }) => {
 	const date = moment.unix(post.created).format("MMMM YYYY");
@@ -10,6 +12,7 @@ export const Post = ({ post, getReplies, toggleFullHeight }) => {
 
 	const onClickPost = () => {
 		toggleFullHeight();
+
 		if (!showDetails && !comments) {
 			setShowDetails(true);
 			getReplies(post.id)
@@ -43,7 +46,8 @@ export const Post = ({ post, getReplies, toggleFullHeight }) => {
 					<Text style={styles.postText}>{post.selftext}</Text>
 				</View>
 			</TouchableOpacity>
-			{!comments && showDetails ? <ActivityIndicator size="large" color="white" style={styles.spinner} /> : null}
+			<AddToFavorites />
+			{!comments && showDetails ? <ActivityIndicator size="large" color={theme.textPrimary} style={styles.spinner} /> : null}
 			{comments && showDetails ? <Comments comments={comments} /> : null}
 		</View>
 	);
@@ -59,7 +63,7 @@ const styles = StyleSheet.create({
 		position: "absolute",
 		top: 0,
 		bottom: 0,
-		backgroundColor: "#343633",
+		backgroundColor: theme.background,
 		zIndex: 100
 	},
 	// post: {
@@ -75,17 +79,17 @@ const styles = StyleSheet.create({
 	title: {
 		fontSize: 16,
 		fontWeight: "bold",
-		color: "white",
+		color: theme.textPrimary,
 		flex: 1,
 		paddingRight: 8,
 		lineHeight: 20
 	},
 	postText: {
 		paddingHorizontal: 8,
-		color: "white",
+		color: theme.textPrimary,
 		backgroundColor: "#494a48",
 		paddingVertical: 8,
-		borderBottomColor: "#aaada6",
+		borderBottomColor: theme.textSecondary,
 		borderBottomWidth: 0.25
 	},
 	contentHidden: {
@@ -99,7 +103,7 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 0.25,
 		paddingHorizontal: 8,
 		paddingBottom: 8,
-		borderBottomColor: "#aaada6"
+		borderBottomColor: theme.textSecondary
 	},
 	preview: {
 		overflow: "hidden"
@@ -113,8 +117,8 @@ const styles = StyleSheet.create({
 	},
 	smallText: {
 		fontSize: 12,
-		color: "white",
-		color: "#aaada6"
+		color: theme.textPrimary,
+		color: theme.textSecondary
 	},
 	date: {
 		paddingTop: 3
