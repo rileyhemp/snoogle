@@ -13,17 +13,28 @@ export const AddToFavorites = ({ parent, addFavorite, hideParent }) => {
 	};
 	return (
 		<View style={styles.toolbar}>
-			<TouchableOpacity onPress={onHideParent}>
-				<Text style={styles.hideButton}>HIDE</Text>
-			</TouchableOpacity>
-			<TouchableOpacity onPress={onAddFavorite}>
+			<View style={styles.flex}>
+				<TouchableOpacity onPress={onHideParent}>
+					<Text style={[styles.padRight, styles.textButton]}>HIDE</Text>
+				</TouchableOpacity>
+				<TouchableOpacity onPress={onAddFavorite}>
+					<Text style={[styles.padRight, styles.textButton]}>SAVE</Text>
+					{/* <Icon name="heart" color="white" backgroundColor="transparent" size={16} /> */}
+				</TouchableOpacity>
+			</View>
+			{/* <TouchableOpacity onPress={onAddFavorite}>
+				<Text style={styles.textButton}>OPEN IN REDDIT</Text>
 				<Icon name="heart" color="white" backgroundColor="transparent" size={16} />
-			</TouchableOpacity>
+			</TouchableOpacity> */}
 		</View>
 	);
 };
 
 const styles = StyleSheet.create({
+	flex: {
+		display: "flex",
+		flexDirection: "row"
+	},
 	toolbar: {
 		width: "100%",
 		height: 30,
@@ -39,9 +50,13 @@ const styles = StyleSheet.create({
 	button: {
 		backgroundColor: "transparent"
 	},
-	hideButton: {
+	textButton: {
 		color: theme.textPrimary,
 		fontWeight: "700",
-		letterSpacing: 2
+		letterSpacing: 2,
+		paddingRight: 20
+	},
+	padRight: {
+		paddingRight: 20
 	}
 });

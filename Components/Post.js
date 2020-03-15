@@ -46,7 +46,7 @@ export const Post = ({ post, getReplies, toggleFullHeight }) => {
 					<Text style={styles.postText}>{post.selftext}</Text>
 				</View>
 			</TouchableOpacity>
-			<AddToFavorites />
+			{showDetails ? <AddToFavorites /> : null}
 			{!comments && showDetails ? <ActivityIndicator size="large" color={theme.textPrimary} style={styles.spinner} /> : null}
 			{comments && showDetails ? <Comments comments={comments} /> : null}
 		</View>
