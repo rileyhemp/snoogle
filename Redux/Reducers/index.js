@@ -1,7 +1,8 @@
 import { combineReducers } from "redux";
 
 export default combineReducers({
-	postIDs
+	postIDs,
+	setLoading
 });
 
 function postIDs(state = {}, action) {
@@ -23,6 +24,16 @@ function postIDs(state = {}, action) {
 		return {
 			...state,
 			postIDs: postIDs
+		};
+	} else return state;
+}
+
+function setLoading(state = false, action) {
+	if (action.type === "SET_LOADING") {
+		const isLoading = action.payload;
+		return {
+			...state,
+			isLoading: isLoading
 		};
 	} else return state;
 }

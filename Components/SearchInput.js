@@ -18,7 +18,7 @@ export default class SearchInput extends Component {
 				inlineImageLeft="snoo"
 				inlineImagePadding={16}
 				returnKeyType="search"
-				autoFocus={true}
+				// autoFocus={true}
 				clearTextOnFocus={true}
 				onEndEditing={() => this.onSearch(this.state.query)}
 				dogs

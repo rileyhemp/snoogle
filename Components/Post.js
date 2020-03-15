@@ -1,33 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { connect } from "react-redux";
 import { Comments } from "./Comments";
 import moment from "moment";
+import { setLoading } from "../Redux/actions";
 
-export const Post = ({ post, getReplies }) => {
+const Post = ({ post, getReplies, toggleFullHeight }) => {
 	const date = moment.unix(post.created).format("MMMM YYYY");
 	const [showDetails, setShowDetails] = useState(false);
 	const [comments, setComments] = useState(null);
 
 	const onClickPost = () => {
-		!showDetails && !comments
-			? getReplies(post.id)
-					.then(res => {
-						setComments(res.comments);
-						setShowDetails(true);
-					})
-					.catch(err => console.log(err))
-			: !showDetails && comments
-			? setShowDetails(true)
-			: setShowDetails(false);
+		toggleFullHeight();
+		if (!showDetails && !comments) {
+			setShowDetails(true);
+			getReplies(post.id)
+				.then(res => {
+					setComments(res.comments);
+				})
+				.catch(err => console.log(err));
+		} else if (!showDetails && comments) {
+			setShowDetails(true);
+		} else {
+			setShowDetails(false);
+		}
 	};
 
 	return (
-		<View style={styles.post}>
+		<View style={[styles.post, showDetails ? styles.postActive : null]}>
 			<TouchableOpacity onPress={() => onClickPost()}>
 				<View style={styles.header}>
 					<View style={styles.flexBetween}>
 						<Text style={styles.title}>{post.title}</Text>
-						<Text style={styles.smallText}>{date}</Text>
+						<Text style={[styles.smallText, styles.date]}>{date}</Text>
 					</View>
 					<Text style={styles.smallText}>
 						{post.author.name} • {post.subreddit.display_name}
@@ -45,21 +50,38 @@ export const Post = ({ post, getReplies }) => {
 	);
 };
 
+export default connect(null, { setLoading })(Post);
+
 const styles = StyleSheet.create({
 	post: {
 		borderColor: "black",
 		borderBottomWidth: 0.25,
 		paddingTop: 4
 	},
+	postActive: {
+		position: "absolute",
+		top: 0,
+		bottom: 0,
+		backgroundColor: "#343633",
+		zIndex: 100
+	},
+	// post: {
+	// 	borderColor: "black",
+	// 	borderBottomWidth: 0.25,
+	// 	paddingTop: 4
+	// },
 	flexBetween: {
 		flexDirection: "row",
 		justifyContent: "space-between",
-		alignItems: "center"
+		alignItems: "flex-start"
 	},
 	title: {
 		fontSize: 16,
 		fontWeight: "bold",
-		color: "white"
+		color: "white",
+		flex: 1,
+		paddingRight: 8,
+		lineHeight: 20
 	},
 	postText: {
 		paddingHorizontal: 8,
@@ -96,5 +118,8 @@ const styles = StyleSheet.create({
 		fontSize: 12,
 		color: "white",
 		color: "#aaada6"
+	},
+	date: {
+		paddingTop: 3
 	}
 });
