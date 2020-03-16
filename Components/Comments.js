@@ -12,11 +12,14 @@ const Comment = ({ comment, depth, toggleShowDetails, showDetails }) => {
 	const onPressContinue = () => {
 		setMaxDepth(10);
 	};
-	const handleHideSelf = state => {
-		setHideSelf(state);
+	const handleShowDetails = showDetails => {
+		if (showDetails === comment.id) {
+			toggleShowDetails();
+		} else toggleShowDetails(comment.id);
 	};
-	const handleShowDetails = () => {
-		toggleShowDetails(comment.id);
+	const handleHideSelf = state => {
+		toggleShowDetails();
+		setHideSelf(state);
 	};
 	return (
 		<View>
@@ -29,9 +32,9 @@ const Comment = ({ comment, depth, toggleShowDetails, showDetails }) => {
 						{comment.score} points • {comment.author.name}
 					</Text>
 				</View>
-				<Text style={styles.body} onPress={() => handleShowDetails()}>
-					{comment.body}
-				</Text>
+				<TouchableOpacity onPress={() => handleShowDetails(showDetails)}>
+					<Text style={styles.body}>{comment.body}</Text>
+				</TouchableOpacity>
 				{showDetails === comment.id ? <AddToFavorites hideParent={handleHideSelf} parent={{ ...comment }} /> : null}
 				{comment.replies && depth < maxDepth ? (
 					comment.replies.map(comment => {
