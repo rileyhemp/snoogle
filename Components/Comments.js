@@ -14,7 +14,6 @@ const Comment = ({ comment, depth, toggleShowDetails, showDetails }) => {
 	};
 	const handleHideSelf = state => {
 		setHideSelf(state);
-		setShowDetails(false);
 	};
 	const handleShowDetails = () => {
 		toggleShowDetails(comment.id);
@@ -59,9 +58,9 @@ const Comment = ({ comment, depth, toggleShowDetails, showDetails }) => {
 export const Comments = ({ comments, addToFavorites }) => {
 	const [showDetails, setShowDetails] = useState(null);
 	//Shows toolbar for only one comment at once
-	function toggleShowDetails(id) {
+	const toggleShowDetails = id => {
 		setShowDetails(id);
-	}
+	};
 	return (
 		<View style={styles.commentsContainer}>
 			{comments.map(comment => {

@@ -30,7 +30,6 @@ function postIDs(state = {}, action) {
 
 function favorites(state = { favorites: [] }, action) {
 	if (action.type === "ADD_FAVORITE") {
-		console.log(state.favorites?.length);
 		return {
 			...state,
 			favorites: [...state.favorites, action.payload]
