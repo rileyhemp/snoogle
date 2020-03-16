@@ -4,7 +4,7 @@ import AddToFavorites from "./AddToFavorites";
 import moment from "moment";
 import theme from "../theme";
 
-const Comment = ({ comment, depth, addToFavorites }) => {
+const Comment = ({ comment, depth }) => {
 	const date = moment.unix(comment.created).format("MM D YY");
 	const [maxDepth, setMaxDepth] = useState(2);
 	const [hideSelf, setHideSelf] = useState(false);
@@ -35,7 +35,7 @@ const Comment = ({ comment, depth, addToFavorites }) => {
 				<Text style={styles.body} onPress={() => toggleShowDetails(true)}>
 					{comment.body}
 				</Text>
-				{showDetails ? <AddToFavorites hideParent={handleHideSelf} parent={comment} addToFavorites={addToFavorites} /> : null}
+				{showDetails ? <AddToFavorites hideParent={handleHideSelf} parent={{ ...comment }} /> : null}
 				{comment.replies && depth < maxDepth ? (
 					comment.replies.map(comment => {
 						return <Comment key={comment.id} comment={comment} depth={depth + 1} />;

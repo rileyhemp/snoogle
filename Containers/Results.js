@@ -24,7 +24,6 @@ class Results extends Component {
 		this.setState({ postData: postData });
 	}
 	handleScroll(value) {
-		console.log(value);
 		this.setState({ scrollY: value });
 	}
 	toggleFullHeight = () => {

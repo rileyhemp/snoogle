@@ -6,9 +6,9 @@ import moment from "moment";
 import theme from "../theme";
 import { addFavorite } from "../Redux/actions";
 
-const AddToFavorites = ({ parent, hideParent, back, addToFavorites }) => {
+const AddToFavorites = ({ parent, hideParent, back, addToFavorites, dispatch }) => {
 	const onAddFavorite = () => {
-		addToFavorites(parent);
+		dispatch(addFavorite(parent));
 	};
 	const onHideParent = () => {
 		hideParent(true);
@@ -64,4 +64,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default connect(null, { addFavorite })(AddToFavorites);
+export default connect(null, null)(AddToFavorites);

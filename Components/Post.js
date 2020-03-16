@@ -5,7 +5,7 @@ import AddToFavorites from "./AddToFavorites";
 import moment from "moment";
 import theme from "../theme";
 
-export const Post = ({ post, getReplies, toggleFullHeight, addToFavorites }) => {
+export const Post = ({ post, getReplies, toggleFullHeight }) => {
 	const date = moment.unix(post.created).format("MMMM YYYY");
 	const [showDetails, setShowDetails] = useState(false);
 	const [comments, setComments] = useState(null);
@@ -51,9 +51,9 @@ export const Post = ({ post, getReplies, toggleFullHeight, addToFavorites }) => 
 					<Text style={styles.postText}>{post.selftext}</Text>
 				</View>
 			</TouchableOpacity>
-			{showDetails ? <AddToFavorites hideParent={onClickPost} back={true} parent={post} addToFavorites={addToFavorites} /> : null}
+			{showDetails ? <AddToFavorites hideParent={onClickPost} back={true} parent={post} /> : null}
 			{!comments && showDetails ? <ActivityIndicator size="large" color={theme.textPrimary} style={styles.spinner} /> : null}
-			{comments && showDetails ? <Comments comments={comments} addToFavorites={addToFavorites} /> : null}
+			{comments && showDetails ? <Comments comments={comments} /> : null}
 		</View>
 	);
 };

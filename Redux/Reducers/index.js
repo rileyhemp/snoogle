@@ -28,9 +28,13 @@ function postIDs(state = {}, action) {
 	} else return state;
 }
 
-function favorites(state = {}, action) {
-	console.log(action);
+function favorites(state = { favorites: [] }, action) {
 	if (action.type === "ADD_FAVORITE") {
+		console.log(state.favorites?.length);
+		return {
+			...state,
+			favorites: [...state.favorites, action.payload]
+		};
 	}
 	return state;
 }

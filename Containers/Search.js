@@ -41,7 +41,6 @@ class Search extends Component {
 		Promise.all(searchResults).then(res => {
 			let results = [];
 			res.forEach(el => results.push(el.items));
-			console.log(flatten(results));
 			this.props.getPosts(flatten(results));
 		});
 	};
