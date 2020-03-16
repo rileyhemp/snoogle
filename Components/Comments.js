@@ -4,11 +4,11 @@ import AddToFavorites from "./AddToFavorites";
 import moment from "moment";
 import theme from "../theme";
 
-const Comment = ({ comment, depth }) => {
+const Comment = ({ comment, depth, toggleShowDetails, showDetails }) => {
 	const date = moment.unix(comment.created).format("MM D YY");
 	const [maxDepth, setMaxDepth] = useState(2);
 	const [hideSelf, setHideSelf] = useState(false);
-	const [showDetails, setShowDetails] = useState(false);
+	// const [showDetails, setShowDetails] = useState(false);
 	const onPressContinue = () => {
 		setMaxDepth(10);
 	};
@@ -16,10 +16,8 @@ const Comment = ({ comment, depth }) => {
 		setHideSelf(state);
 		setShowDetails(false);
 	};
-	const toggleShowDetails = () => {
-		if (!showDetails) {
-			setShowDetails(true);
-		} else setShowDetails(false);
+	const handleShowDetails = () => {
+		toggleShowDetails(comment.id);
 	};
 	return (
 		<View>
@@ -32,13 +30,21 @@ const Comment = ({ comment, depth }) => {
 						{comment.score} points • {comment.author.name}
 					</Text>
 				</View>
-				<Text style={styles.body} onPress={() => toggleShowDetails(true)}>
+				<Text style={styles.body} onPress={() => handleShowDetails()}>
 					{comment.body}
 				</Text>
-				{showDetails ? <AddToFavorites hideParent={handleHideSelf} parent={{ ...comment }} /> : null}
+				{showDetails === comment.id ? <AddToFavorites hideParent={handleHideSelf} parent={{ ...comment }} /> : null}
 				{comment.replies && depth < maxDepth ? (
 					comment.replies.map(comment => {
-						return <Comment key={comment.id} comment={comment} depth={depth + 1} />;
+						return (
+							<Comment
+								key={comment.id}
+								comment={comment}
+								depth={depth + 1}
+								toggleShowDetails={toggleShowDetails}
+								showDetails={showDetails}
+							/>
+						);
 					})
 				) : comment.replies.length > 0 ? (
 					<Text style={styles.link} onPress={onPressContinue}>
@@ -51,10 +57,15 @@ const Comment = ({ comment, depth }) => {
 };
 
 export const Comments = ({ comments, addToFavorites }) => {
+	const [showDetails, setShowDetails] = useState(null);
+	//Shows toolbar for only one comment at once
+	function toggleShowDetails(id) {
+		setShowDetails(id);
+	}
 	return (
 		<View style={styles.commentsContainer}>
 			{comments.map(comment => {
-				return <Comment key={comment.id} comment={comment} depth={0} addToFavorites={addToFavorites} />;
+				return <Comment key={comment.id} comment={comment} depth={0} toggleShowDetails={toggleShowDetails} showDetails={showDetails} />;
 			})}
 		</View>
 	);
