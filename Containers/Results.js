@@ -59,6 +59,7 @@ class Results extends Component {
 		});
 	}
 	getReplies(post) {
+		console.log("getting good replies", post);
 		return new Promise((resolve, reject) => {
 			//Authenticate
 			snoowrap
@@ -84,6 +85,7 @@ class Results extends Component {
 		});
 	}
 	// componentDidUpdate(prevProps) {
+	// Checks if postIDs has changed and decides whether to re-render
 	// 	if (this.props.postIDs?.join() != prevProps.postIDs?.join()) {
 	// 		this.getPostsFromIDs(this.props.postIDs).then(postData => this.handlePostData(postData));
 	// 	}
@@ -111,7 +113,6 @@ class Results extends Component {
 									post={post}
 									getReplies={this.getReplies}
 									toggleFullHeight={this.toggleFullHeight}
-									addToFavorites={this.handleAddFavorite}
 								/>
 							) : null;
 					  })

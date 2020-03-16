@@ -18,7 +18,7 @@ const App: () => React$Node = () => {
 		{ key: "first", title: "Search" },
 		{ key: "second", title: "Favorites" }
 	]);
-	const MainPage = () => {
+	const SearchPage = () => {
 		return (
 			<View style={styles.tab}>
 				<Search />
@@ -26,9 +26,16 @@ const App: () => React$Node = () => {
 			</View>
 		);
 	};
+	const FavoritesPage = () => {
+		return (
+			<View style={styles.tab}>
+				<Favorites />
+			</View>
+		);
+	};
 	const renderScene = SceneMap({
-		first: MainPage,
-		second: Favorites
+		first: SearchPage,
+		second: FavoritesPage
 	});
 	return (
 		<>

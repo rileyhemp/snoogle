@@ -8,6 +8,7 @@ import { addFavorite } from "../Redux/actions";
 
 const AddToFavorites = ({ parent, hideParent, back, addToFavorites, dispatch }) => {
 	const onAddFavorite = () => {
+		console.log("parent element", parent);
 		dispatch(addFavorite(parent));
 	};
 	const onHideParent = () => {

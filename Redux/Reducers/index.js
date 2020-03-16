@@ -32,7 +32,7 @@ function favorites(state = { favorites: [] }, action) {
 	if (action.type === "ADD_FAVORITE") {
 		return {
 			...state,
-			favorites: [...state.favorites, action.payload]
+			favorites: [...state.favorites, action.payload.element]
 		};
 	} else if (action.type === "GET_FAVORITES") {
 		return state.favorites;
