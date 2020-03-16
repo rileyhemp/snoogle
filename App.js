@@ -6,6 +6,7 @@ import { TabView, SceneMap } from "react-native-tab-view";
 import rootReducer from "./Redux/Reducers";
 import Search from "./Containers/Search";
 import Results from "./Containers/Results";
+import Favorites from "./Containers/Favorites";
 import theme from "./theme";
 import moment from "moment";
 
@@ -25,12 +26,9 @@ const App: () => React$Node = () => {
 			</View>
 		);
 	};
-	const FavoritesPage = () => {
-		return <View style={styles.tab}></View>;
-	};
 	const renderScene = SceneMap({
 		first: MainPage,
-		second: FavoritesPage
+		second: Favorites
 	});
 	return (
 		<>

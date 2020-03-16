@@ -34,6 +34,10 @@ function favorites(state = { favorites: [] }, action) {
 			...state,
 			favorites: [...state.favorites, action.payload]
 		};
+	} else if (action.type === "GET_FAVORITES") {
+		return state.favorites;
+	} else if (action.type === "REMOVE_FAVORITE") {
+		return state;
 	}
 	return state;
 }

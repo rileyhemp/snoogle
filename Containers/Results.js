@@ -58,9 +58,6 @@ class Results extends Component {
 			// 	.catch(err => reject(err));
 		});
 	}
-	handleAddFavorite = el => {
-		console.log("adding a fav");
-	};
 	getReplies(post) {
 		return new Promise((resolve, reject) => {
 			//Authenticate
