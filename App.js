@@ -2,47 +2,22 @@ import * as React from "react";
 import { SafeAreaView, StyleSheet, StatusBar, Dimensions, View } from "react-native";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
-import { TabView, SceneMap } from "react-native-tab-view";
 import rootReducer from "./Redux/Reducers";
 import Search from "./Containers/Search";
 import Results from "./Containers/Results";
-import Favorites from "./Containers/Favorites";
 import theme from "./theme";
 import moment from "moment";
 
 const store = createStore(rootReducer);
 const initialLayout = { width: Dimensions.get("window").width };
 const App: () => React$Node = () => {
-	const [index, setIndex] = React.useState(0);
-	const [routes] = React.useState([
-		{ key: "first", title: "Search" },
-		{ key: "second", title: "Favorites" }
-	]);
-	const SearchPage = () => {
-		return (
-			<View style={styles.tab}>
-				<Search />
-				<Results />
-			</View>
-		);
-	};
-	const FavoritesPage = () => {
-		return (
-			<View style={styles.tab}>
-				<Favorites />
-			</View>
-		);
-	};
-	const renderScene = SceneMap({
-		first: SearchPage,
-		second: FavoritesPage
-	});
 	return (
 		<>
 			<Provider store={store}>
 				<StatusBar barStyle="dark-content" />
 				<SafeAreaView style={styles.body}>
-					<TabView navigationState={{ index, routes }} renderScene={renderScene} onIndexChange={setIndex} initialLayout={initialLayout} />
+					<Search />
+					<Results />
 				</SafeAreaView>
 			</Provider>
 		</>

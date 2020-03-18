@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import AddToFavorites from "./AddToFavorites";
+import OptionsBar from "./OptionsBar";
 import moment from "moment";
 import theme from "../theme";
 
@@ -8,7 +8,6 @@ const Comment = ({ comment, depth, toggleShowDetails, showDetails }) => {
 	const date = moment.unix(comment.created).format("MM D YY");
 	const [maxDepth, setMaxDepth] = useState(2);
 	const [hideSelf, setHideSelf] = useState(false);
-	// const [showDetails, setShowDetails] = useState(false);
 	const onPressContinue = () => {
 		setMaxDepth(10);
 	};
@@ -35,7 +34,7 @@ const Comment = ({ comment, depth, toggleShowDetails, showDetails }) => {
 				<TouchableOpacity onPress={() => handleShowDetails(showDetails)}>
 					<Text style={styles.body}>{comment.body}</Text>
 				</TouchableOpacity>
-				{showDetails === comment.id ? <AddToFavorites hideParent={handleHideSelf} parent={{ ...comment }} /> : null}
+				{showDetails === comment.id ? <OptionsBar hideParent={handleHideSelf} parent={{ ...comment }} /> : null}
 				{comment.replies && depth < maxDepth ? (
 					comment.replies.map(comment => {
 						return (
@@ -58,7 +57,7 @@ const Comment = ({ comment, depth, toggleShowDetails, showDetails }) => {
 	);
 };
 
-export const Comments = ({ comments, addToFavorites }) => {
+export const Comments = ({ comments }) => {
 	const [showDetails, setShowDetails] = useState(null);
 	//Shows toolbar for only one comment at once
 	const toggleShowDetails = id => {
