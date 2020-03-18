@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Linking } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import moment from "moment";
 import theme from "../theme";
@@ -9,7 +9,10 @@ export const OptionsBar = ({ parent, hideParent, back, dispatch }) => {
 		hideParent(true);
 	};
 	const openInReddit = () => {
-		console.log("opening in reddit");
+		console.log(parent);
+		const id = parent.name.split("_")[1];
+		const url = "https://reddit.com/" + id;
+		Linking.openURL(url).catch(err => console.error("An error occurred", err));
 	};
 	return (
 		<View style={styles.toolbar}>
