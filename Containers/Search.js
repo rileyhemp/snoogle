@@ -13,7 +13,7 @@ class Search extends Component {
 		this.config = {
 			key: config.GOOGLE_API_KEY,
 			cx: config.GOOGLE_CSE_ID,
-			pagesToSearch: 3,
+			pagesToSearch: 5,
 			fields: "items(link,pagemap(metatags(og:description)))" //Only pull the link and meta description (shows upvotes and comments)
 		};
 	}
