@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import { Comments } from "./Comments";
-import OptionsBar from "./OptionsBar";
+import { OptionsBar } from "./OptionsBar";
 import moment from "moment";
 import theme from "../theme";
 
